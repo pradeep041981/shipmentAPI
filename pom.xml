@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.accenture</groupId>
-    <artifactId>shipmentService</artifactId>
+    <artifactId>shipmentBootService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shipmentService</name>
-    <description>shipmentService</description>
+    <name>shipmentBootService</name>
+    <description>shipmentBootService</description>
     <url/>
     <licenses>
         <license/>

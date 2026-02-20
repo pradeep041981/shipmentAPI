@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AngularAppApplication {
+public class ShipmentBootServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AngularAppApplication.class, args);
+        SpringApplication.run(ShipmentBootServiceApplication.class, args);
     }
 
 }
