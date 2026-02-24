@@ -8,24 +8,11 @@
         <version>4.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.accenture</groupId>
-    <artifactId>shipmentBootService</artifactId>
+    <groupId>com.fedex</groupId>
+    <artifactId>shipmentAPI</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shipmentBootService</name>
-    <description>shipmentBootService</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+    <name>shipmentAPI</name>
+    <description>shipmentAPI</description>
     <properties>
         <java.version>17</java.version>
     </properties>

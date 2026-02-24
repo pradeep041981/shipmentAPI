@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: shipmentAPI
+
+# Server Configuration
+server:
+  port: 8080
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com:
+      fedex: DEBUG
+

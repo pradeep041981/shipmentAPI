@@ -1,4 +1,4 @@
-package com.accenture.angularapp.model;
+package com.fedex.shipment.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
