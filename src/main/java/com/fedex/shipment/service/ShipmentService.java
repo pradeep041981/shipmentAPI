@@ -3,7 +3,6 @@ package com.fedex.shipment.service;
 import com.fedex.shipment.model.ShipmentRequest;
 import com.fedex.shipment.model.ShipmentResponse;
 import com.fedex.shipment.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +11,11 @@ import java.util.List;
 @Service
 public class ShipmentService {
 
-    @Autowired
-    private StringUtil util;
+    private final StringUtil util;
+
+    public ShipmentService(StringUtil util) {
+        this.util = util;
+    }
 
     public List<ShipmentResponse> getShipments(ShipmentRequest shipmentRequest) {
 
