@@ -19,8 +19,8 @@ public class ShipmentService {
 
     public List<ShipmentResponse> getShipments(ShipmentRequest shipmentRequest) {
 
-        if (util.isEmpty(shipmentRequest.getShipmentId())) {
-            throw new IllegalArgumentException("Shipment ID cannot be empty");
+        if (!util.isValid(shipmentRequest.getShipmentId())) {
+            throw new IllegalArgumentException("Shipment ID Should be in numeric or alphanumeric format");
         }
         // Mock data for demonstration
         List<ShipmentResponse> shipments = new ArrayList<>();

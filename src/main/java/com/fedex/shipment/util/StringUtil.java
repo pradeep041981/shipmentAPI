@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class StringUtil {
 
-    public boolean isEmpty(String str) {
-        return str == null || str.trim().isEmpty();
+    public boolean isValid(String str) {
+        //check if the string is alphanumeric or numeric, if not return false
+        return str.matches("^[a-zA-Z0-9]+$");
     }
 }
