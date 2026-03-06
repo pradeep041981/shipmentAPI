@@ -4,10 +4,7 @@ import com.fedex.shipment.model.ShipmentRequest;
 import com.fedex.shipment.model.ShipmentResponse;
 import com.fedex.shipment.service.ShipmentService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,11 @@ public class ShipmentController {
     @PostMapping
     public List<ShipmentResponse> trackShipment(@Valid @RequestBody ShipmentRequest request) {
         return shipmentService.getShipments(request);
+    }
+
+    @GetMapping
+    public List<ShipmentResponse> shipments() {
+        return shipmentService.getShipments();
     }
 }
 

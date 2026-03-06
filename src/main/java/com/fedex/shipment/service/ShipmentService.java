@@ -29,4 +29,12 @@ public class ShipmentService {
         return shipments;
     }
 
+
+    public List<ShipmentResponse> getShipments() {
+        List<ShipmentResponse> shipments = new ArrayList<>();
+        shipments.add(new ShipmentResponse("SHP001", "New York", "Los Angeles", "In Transit"));
+        shipments.add(new ShipmentResponse("SHP002", "Chicago", "Houston", "Delivered"));
+        return shipments;
+    }
+
 }
