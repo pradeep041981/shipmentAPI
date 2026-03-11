@@ -1,8 +1,7 @@
 package com.fedex.shipment.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,23 +17,16 @@ public class AuthController {
      * Returns the currently authenticated user's info if logged in.
      */
     @GetMapping("/")
-    public ResponseEntity<Map<String, Object>> home(@AuthenticationPrincipal OAuth2User principal) {
+    public ResponseEntity<Map<String, Object>> home(Authentication authentication) {
         Map<String, Object> response = new HashMap<>();
 
-        if (principal != null) {
-            // User is authenticated
+        if (authentication != null && authentication.isAuthenticated()) {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> principal = (Map<String, Object>) authentication.getPrincipal();
             response.put("authenticated", true);
             response.put("message", "Welcome to Shipment API");
-            Map<String, Object> user = new HashMap<>();
-            Object name = principal.getAttribute("name");
-            Object email = principal.getAttribute("email");
-            Object picture = principal.getAttribute("picture");
-            if (name != null) user.put("name", name);
-            if (email != null) user.put("email", email);
-            if (picture != null) user.put("picture", picture);
-            response.put("user", user);
+            response.put("user", principal);
         } else {
-            // User is not authenticated
             response.put("authenticated", false);
             response.put("message", "Please log in to access the API");
             response.put("login_url", "/oauth2/authorize/google");
@@ -57,41 +49,41 @@ public class AuthController {
     }
 
     /**
-     * Returns the currently authenticated user's info from Google OAuth2.
+     * Returns the currently authenticated user's info extracted from the JWT.
      * Accessible at GET /auth/me
      * If not authenticated, returns 401 (handled by Spring Security).
      */
     @GetMapping("/auth/me")
-    public ResponseEntity<Map<String, Object>> currentUser(@AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<Map<String, Object>> currentUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(401).body(Map.of("error", "Not authenticated"));
         }
 
-        Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("name", principal.getAttribute("name"));
-        userInfo.put("email", principal.getAttribute("email"));
-        userInfo.put("picture", principal.getAttribute("picture"));
-        userInfo.put("sub", principal.getAttribute("sub"));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> principal = (Map<String, Object>) authentication.getPrincipal();
+
+        Map<String, Object> userInfo = new HashMap<>(principal);
         userInfo.put("authenticated", true);
 
         return ResponseEntity.ok(userInfo);
     }
 
     /**
-     * Returns login status.
+     * Returns login status based on JWT presence.
      * Accessible at GET /auth/status
      */
     @GetMapping("/auth/status")
-    public ResponseEntity<Map<String, Object>> loginStatus(@AuthenticationPrincipal OAuth2User principal) {
+    public ResponseEntity<Map<String, Object>> loginStatus(Authentication authentication) {
         Map<String, Object> status = new HashMap<>();
-        if (principal != null) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> principal = (Map<String, Object>) authentication.getPrincipal();
             status.put("authenticated", true);
-            status.put("name", principal.getAttribute("name"));
-            status.put("email", principal.getAttribute("email"));
+            status.put("name",  principal.get("name"));
+            status.put("email", principal.get("email"));
         } else {
             status.put("authenticated", false);
         }
         return ResponseEntity.ok(status);
     }
 }
-

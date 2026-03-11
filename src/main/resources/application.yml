@@ -2,6 +2,12 @@
 server:
   port: 8080
 
+# JWT Configuration
+jwt:
+  # Override via JWT_SECRET environment variable in production (min 32 chars for HS256)
+  secret: ${JWT_SECRET:shipment-api-super-secret-key-change-in-production-32+}
+  expiration: 86400000   # 24 hours in milliseconds
+
 
 # Logging
 logging:
