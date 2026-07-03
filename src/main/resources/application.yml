@@ -2,13 +2,6 @@
 server:
   port: 8080
 
-# JWT Configuration
-jwt:
-  # Override via JWT_SECRET environment variable in production (min 32 chars for HS256)
-  secret: ${JWT_SECRET:shipment-api-super-secret-key-change-in-production-32+}
-  expiration: 86400000   # 24 hours in milliseconds
-
-
 # Logging
 logging:
   level:
@@ -26,29 +19,15 @@ management:
     health:
       show-details: when-authorized
 
-# Google OAuth2 configuration
+# Okta OpenID Connect bearer-token validation (resource server)
 spring:
   application:
     name: shipmentAPI
   security:
     oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${GOOGLE_OAUTH_CLIENT_ID}
-            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-            scope:
-              - openid
-              - profile
-              - email
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
-            user-name-attribute: sub
+      resourceserver:
+        jwt:
+          issuer-uri: ${OKTA_ISSUER}
   web:
     error:
       include-message: always
